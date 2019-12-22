@@ -1,0 +1,33 @@
+variables:
+  SPRING_PROFILES_ACTIVE: ci
+
+before_script:
+  - chmod +x ./gradlew
+  - eval $(ssh-agent -s)
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - ssh-keyscan gitlab.ixi.com >> ~/.ssh/known_hosts
+  - chmod 644 ~/.ssh/known_hosts
+  - git config --global user.email "vgeorgiou@trading-point.com"
+  - git config --global user.name "Viktor Georgiou"
+  - export SNAPSHOT_VERSION=`./gradlew properties -q | grep "version:" | awk '{print $2}'`
+  - export RELEASE_VERSION=${SNAPSHOT_VERSION%-SNAPSHOT}
+stages:
+  - build
+  - test
+
+gradle-build:
+  stage: build
+  script: "./gradlew assemble -x test"
+  artifacts:
+    paths:
+      - build/libs/*.jar
+  except:
+    - tags
+
+gradle-test:
+  stage: test
+  script: "./gradlew test"
+  except:
+    - tags

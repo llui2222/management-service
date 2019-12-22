@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: management-service
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+    service-registry:
+      auto-registration:
+        enabled: false

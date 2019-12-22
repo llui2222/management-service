@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false
+  batch:
+    job:
+      enabled: false
+security:
+  jwt:
+    signature-key: 'dummyKey'

@@ -1,0 +1,69 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.4.RELEASE'
+        gradleReleaseVersion = '2.4.0'
+    }
+    repositories {
+        maven {
+            url project.nexus_url + "/content/groups/public"
+            credentials {
+                username = project.nexus_user
+                password = project.nexus_password
+            }
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("net.researchgate:gradle-release:${gradleReleaseVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'net.researchgate.release'
+
+group = 'com.tpam.service'
+sourceCompatibility = 1.8
+
+repositories {
+    maven {
+        url project.nexus_url + "/content/groups/public"
+        credentials {
+            username = project.nexus_user
+            password = project.nexus_password
+        }
+    }
+}
+
+ext {
+    springCloudVersion = 'Finchley.SR1'
+    jjwtVersion = '0.9.1'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-batch'
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    implementation "io.jsonwebtoken:jjwt:${jjwtVersion}"
+    implementation 'com.h2database:h2'
+    runtime 'net.logstash.logback:logstash-logback-encoder:5.2'
+    runtime('org.codehaus.janino:janino')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.springframework.batch:spring-batch-test'
+    testImplementation 'org.springframework.cloud:spring-cloud-stream-test-support'
+    testImplementation 'io.github.benas:random-beans:3.7.0'
+}

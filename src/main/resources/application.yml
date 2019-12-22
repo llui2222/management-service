@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    stream:
+      rabbit:
+        bindings:
+          strategySuspendedInput:
+            consumer:
+              bindingRoutingKey: strategy.event.suspended
+      bindings:
+        strategySuspendedInput:
+          destination: strategy
+          group: strategy-suspended-${spring.application.name}-queue
+          contentType: application/json
+  batch:
+    job:
+      enabled: false

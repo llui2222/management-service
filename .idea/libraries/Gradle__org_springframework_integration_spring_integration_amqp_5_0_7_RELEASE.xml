@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.integration:spring-integration-amqp:5.0.7.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.integration/spring-integration-amqp/5.0.7.RELEASE/4ed2a195e2ffaa1848e439e614c9c04253ea05df/spring-integration-amqp-5.0.7.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.integration/spring-integration-amqp/5.0.7.RELEASE/62ac6a95d798a5fd4e03b93b194b45e98f5f73c6/spring-integration-amqp-5.0.7.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

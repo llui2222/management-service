@@ -1,0 +1,20 @@
+version: "3"
+services:
+  management-service:
+    build: .
+    image: local.gitlab.ixi.com/tpam/services/management-service:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      DEPLOY_HOST: management-service
+      EUREKA_SERVER_LIST: http://discovery-service:8761/eureka/
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 8100:8080
+    networks:
+      - tpam
+networks:
+  tpam:
+    external: true

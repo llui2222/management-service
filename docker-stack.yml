@@ -1,0 +1,20 @@
+version: "3"
+services:
+  management-service:
+    image: $RELEASE_IMAGE
+    environment:
+      SPRING_PROFILES_ACTIVE: $SPRING_PROFILES_ACTIVE
+      LOGGING_MODE: logstash
+      DEPLOY_HOST: management-service
+      EUREKA_SERVER_LIST: http://eureka-peer-1:8761/eureka/,http://eureka-peer-2:8761/eureka/
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    ports:
+      - 8090:8080
+    networks:
+      - tpam
+networks:
+  tpam:
+    external: true
